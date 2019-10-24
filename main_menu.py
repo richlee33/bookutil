@@ -31,37 +31,37 @@ def book_menu():
     search_string = ''
 
     while True: 
-        main_options=main_menu.keys()
+        main_options=list(main_menu.keys())
         main_options.sort()
-        print "====Main Menu===="
+        print("====Main Menu====")
         if (len(library) == 0):
             #empty libray so only allow menu items for build new library or load library from csv
             entry = [0, 1, 6]
             for item in entry:
-                print main_options[item], main_menu[main_options[item]]
+                print(main_options[item], main_menu[main_options[item]])
         else:
             #full menu allowed
             for entry in main_options: 
-                print entry, main_menu[entry]
+                print(entry, main_menu[entry])
 
-        selection=raw_input(">>>Please Select:") 
+        selection=input(">>>Please Select:") 
 
         if selection == '1': 
             #build library
-            search_string = str(raw_input(">>>Search String:"))
+            search_string = str(input(">>>Search String:"))
             if len(search_string) > 0:
                 library = build_library(search_string)
-                print (str(len(library)) + " books in library.")
+                print((str(len(library)) + " books in library."))
             else:
                 print("Blank search string.  Please enter a search string")
 
         elif selection == '2':
             #load library
-            file_name = str(raw_input(">>>File Name to load from:"))
+            file_name = str(input(">>>File Name to load from:"))
             if len(file_name) > 0:
                 try:
                     library = load_csv(file_name)
-                    print (str(len(library)) + " books in library.")
+                    print((str(len(library)) + " books in library."))
                 except IOError:
                     print("File not found.  Please enter valid file name")
             else:
@@ -70,7 +70,7 @@ def book_menu():
         elif selection == '3': 
             #save library
             if len(library) > 0:
-                file_name = str(raw_input(">>>File name to save to:"))
+                file_name = str(input(">>>File name to save to:"))
                 if len(file_name) == 0:
                     print("Blank file name.  Please enter a file name.")
                 else:
@@ -87,13 +87,13 @@ def book_menu():
                 stay_submenu = False
 
             while stay_submenu:
-                group_options=group_menu.keys()
+                group_options=list(group_menu.keys())
                 group_options.sort()
-                print "====Group By Menu===="
+                print("====Group By Menu====")
                 for subentry in group_options:
-                    print subentry, group_menu[subentry]
+                    print(subentry, group_menu[subentry])
 
-                subselection=raw_input(">>>Please Select:")
+                subselection=input(">>>Please Select:")
 
                 if subselection == '1':
                     #publisher to screen
@@ -110,11 +110,11 @@ def book_menu():
                     dict_pub = group_by_publisher(library)
                     
                     #build list of grouped books
-                    pub_keys = dict_pub.keys()
+                    pub_keys = list(dict_pub.keys())
                     for item in pub_keys:
                         publisher_books = dict_pub[item]
                         list_dict_pub.extend(publisher_books)
-                    file_name =raw_input(">>>Enter file name to save:") 
+                    file_name =input(">>>Enter file name to save:") 
                     if len(file_name) == 0:
                         print("Blank file name.  Please enter a file name.")
                     else:
@@ -134,10 +134,10 @@ def book_menu():
                     dict_formats = group_by_format(library)
                     
                     #build list of grouped books
-                    format_keys = dict_formats.keys()
+                    format_keys = list(dict_formats.keys())
                     for item in format_keys:
                         list_dict_formats.extend(dict_formats[item])
-                    file_name =raw_input(">>>Enter file name to save:")    
+                    file_name =input(">>>Enter file name to save:")    
           
                     if len(file_name) == 0:
                         print("Blank file name.  Please enter a file name.")
@@ -145,10 +145,10 @@ def book_menu():
                         save_to_csv(list_dict_formats, file_name)
 
                 elif subselection == '9':
-                    print "exit group"
+                    print("exit group")
                     stay_submenu = False
                 else:
-                    print "Invalid menu item chosen."
+                    print("Invalid menu item chosen.")
 
         elif selection == '5':
             #sort library
@@ -159,15 +159,15 @@ def book_menu():
                 stay_submenu = False
 
             while stay_submenu:
-                sort_options=sort_menu.keys()
+                sort_options=list(sort_menu.keys())
                 sort_options.sort()
-                print "====Sort Menu===="
+                print("====Sort Menu====")
                 for subentry in sort_options:
-                    print subentry, sort_menu[subentry]
-                subselection=raw_input(">>>Please Select:")
+                    print(subentry, sort_menu[subentry])
+                subselection=input(">>>Please Select:")
 
                 if subselection == '1':
-                    print "price"
+                    print("price")
                     #set the attribute below to sort on retail or list price
                     #price_attribute="retailPrice"
                     price_attribute="listPrice"
@@ -176,35 +176,35 @@ def book_menu():
                     print_list_books(lib_sorted, price_attribute = price_attribute)
 
                 elif subselection == '2':
-                    print "average rating"
+                    print("average rating")
                     volume_attribute = "averageRating"
                     lib_sorted = sort_by_volumeInfo(library, volume_attribute)
                     print_list_books(lib_sorted, volume_attribute = volume_attribute)
 
                 elif subselection == '3':
-                    print "ratings count"
+                    print("ratings count")
                     volume_attribute = "ratingsCount"
                     lib_sorted = sort_by_volumeInfo(library, volume_attribute)
                     print_list_books(lib_sorted, volume_attribute = volume_attribute)
 
                 elif subselection == '4':
-                    print "publish date"
+                    print("publish date")
                     volume_attribute = "publishedDate"
                     lib_sorted = sort_by_volumeInfo(library, volume_attribute)
                     print_list_books(lib_sorted, volume_attribute = volume_attribute)
 
                 elif subselection == '5':
-                    print "page count"
+                    print("page count")
                     volume_attribute = "pageCount"
                     lib_sorted = sort_by_volumeInfo(library, volume_attribute)
                     print_list_books(lib_sorted, volume_attribute = volume_attribute)
 
                 elif subselection == '9':
-                    print "exit group"
+                    print("exit group")
                     stay_submenu = False
 
                 else:
-                    print "Invalid menu item chosen."
+                    print("Invalid menu item chosen.")
 
         elif selection == '6':
             #print library
@@ -219,8 +219,7 @@ def book_menu():
             break
 
         else: 
-            print "Invalid menu item chosen." 
+            print("Invalid menu item chosen.") 
 
 
 book_menu()
-

@@ -1,5 +1,5 @@
 import requests
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 class Book_Request:
 #makes requests to google book API and returns the response object
@@ -24,7 +24,7 @@ class Book_Request:
             self.params['startIndex'] = startIndex
 
 
-        url = self.url + '?' + urllib.urlencode(self.params)
+        url = self.url + '?' + urllib.parse.urlencode(self.params)
         r = requests.get(url, verify=False)
         return r
 

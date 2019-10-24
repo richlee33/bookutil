@@ -95,7 +95,7 @@ def group_by_format(library):
 def print_grouped_dict(dictionary):
 #helper function that takes a dictionary of lists and prints the key a unique set of book attributes
 
-    keys = dictionary.keys()
+    keys = list(dictionary.keys())
 
     for item in keys:
         print ("==============================================")
@@ -113,24 +113,24 @@ def print_list_books(l, volume_attribute=None, price_attribute=None):
         price_attribute = 'listPrice'
 
     for item in l:
-        print ("    " + "--------------------------------------")
-        print ("    id: " + item['id'])
-        print ("    title: " + item['volumeInfo']['title'])
+        print(("    " + "--------------------------------------"))
+        print(("    id: " + item['id']))
+        print(("    title: " + item['volumeInfo']['title']))
         try:
-            print ("    subtitle: " + item['volumeInfo']['subtitle'])
+            print(("    subtitle: " + item['volumeInfo']['subtitle']))
         except KeyError: pass
         try:
             author_string = ", ".join(item['volumeInfo']['authors'])
-            print ("    author: " + author_string)
+            print(("    author: " + author_string))
         except KeyError: pass
         try:
-            print ("    publisher: " + item['volumeInfo']['publisher'])
+            print(("    publisher: " + item['volumeInfo']['publisher']))
         except KeyError: pass
         try:
-            print ("    " + volume_attribute + ": " + str(item['volumeInfo'][volume_attribute]))
+            print(("    " + volume_attribute + ": " + str(item['volumeInfo'][volume_attribute])))
         except KeyError: pass
         try:
-            print ("    " + price_attribute + ": " + str(item['saleInfo'][price_attribute]['amount']))
+            print(("    " + price_attribute + ": " + str(item['saleInfo'][price_attribute]['amount'])))
         except KeyError: pass
 
 
@@ -197,10 +197,10 @@ def flatten_json(dictionary, delim):
 
     flattened_dict = {}
 
-    for i in dictionary.keys():
+    for i in list(dictionary.keys()):
         if isinstance(dictionary[i], dict):
             get = flatten_json(dictionary[i], delim)
-            for j in get.keys():
+            for j in list(get.keys()):
                 flattened_dict[i + delim + j] = get[j]
         else:
             flattened_dict[i] = dictionary[i]
@@ -250,7 +250,7 @@ def load_csv(file_name):
     def _remove_nan_keys(d):
 
         key = []
-        key = d.keys()
+        key = list(d.keys())
         for item in key:
             if pandas.isnull(d[item]):
                 del d[item]
@@ -260,16 +260,16 @@ def load_csv(file_name):
     #fix values that are unicode objects that contain lists to be list objects
 
         key = []
-        key = d.keys()
+        key = list(d.keys())
 
         for item in key:
             list_value = []    #store fixed list value
-            if isinstance(d[item], unicode):
+            if isinstance(d[item], str):
                 if '[' in d[item] and ']' in d[item]:
                     try:
                         list_value = ast.literal_eval(d[item])
-	            #except SyntaxError:
-	            except:
+                    #except SyntaxError:
+                    except:
                         if ' ' in d[item]:
                             #handles author first and last name and multiple authors
                             list_value = d[item][1:-1].split(', ')

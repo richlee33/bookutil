@@ -1,3 +1,4 @@
+appnope==0.1.0
 backports.shutil-get-terminal-size==1.0.0
 certifi==2017.7.27.1
 chardet==3.0.4
@@ -6,8 +7,8 @@ enum34==1.1.6
 idna==2.5
 ipython==5.4.1
 ipython-genutils==0.2.0
-numpy==1.13.1
-pandas==0.20.3
+numpy==1.17.3
+pandas==0.25.2
 pathlib2==2.3.0
 pexpect==4.2.1
 pickleshare==0.7.4
@@ -16,10 +17,10 @@ ptyprocess==0.5.2
 Pygments==2.2.0
 python-dateutil==2.6.1
 pytz==2017.2
-requests==2.18.3
+requests==2.20.0
 scandir==1.5
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.3.2
-urllib3==1.22
+urllib3==1.24.2
 wcwidth==0.1.7
